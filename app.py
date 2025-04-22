@@ -14,6 +14,10 @@ def home():
 def taomlar():
     return render_template('taomlar.html')
 
+
+
+###hjhjjgjgj
+
 @app.route('/ichimliklar')
 def ichimliklar():
     return render_template('ichimliklar.html')

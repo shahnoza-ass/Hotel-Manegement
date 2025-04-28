@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <nav class="navbar navbar-light bg-white shadow-sm p-3 mb-4">
+        <div class="container">
+            <a href="{{ url_for('home') }}" class="navbar-brand">🍽 Restoran</a>
+            <div>
+                <a href="{{ url_for('home') }}" class="btn btn-outline-primary me-2">
+                    <i class="fas fa-arrow-left"></i> Orqaga
+                </a>
+                <a href="{{ url_for('cart') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-shopping-cart"></i> Savatcha
+                </a>
+            </div>
+        </div>
+    </nav>
+    <title>Salatlar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <style>
+        .menu-card {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            position: relative;
+            color: rgb(247, 243, 243);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-card .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+        .menu-card h5 {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+</body>
+<!-- #style="background-image: url('/static/images/drinks/bg.jpg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;" -->
+
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Salatlar</h2>
+    <div class="row g-4">
+
+        {% set drinks = [
+        {'name': 'Olivye', 'image': 'olivye1.jpg'},
+        {'name': 'Fransuzskiy salat', 'image': 'fransuz.jpg'},
+        {'name': 'Grekcha salat', 'image': 'grek.jpg'},
+        {'name': 'Gruzincha salat', 'image': 'gruzincha.jpg'},
+        {'name': 'Gurman', 'image': 'gurman.jpeg'},
+        {'name': 'Korolevskiy salat', 'image': 'korolevskiy.jpg'},
+        {'name': 'Mimoza', 'image': 'mimoza.jpg'},
+        {'name': 'Vinegret', 'image': 'Vinegret.jpg'},
+        {'name': 'Buratto', 'image': 'buratto.jpg'},
+        {'name': 'Sezar', 'image': 'sezar.webp'},
+        {'name': 'Orkinos', 'image': 'orkinos.webp'},
+        {'name': 'Bahor salati', 'image': 'bahor.jpg'},
+        {'name': 'Karam salat', 'image': 'karam.jpg'},
+        {'name': 'Tovuq salat', 'image': 'tovuq.jpg'},
+        {'name': 'Fasolyali salat', 'image': 'fasol.jpg'}
+        ] %}
+
+        {% for item in drinks %}
+        <div class="col-md-3">
+            <div class="menu-card" style="background-image: url('/static/images/salat/{{ item.image }}');">
+                <div class="overlay">
+                    <h5>{{ item.name }}</h5>
+                    <div class="d-flex justify-content-between">
+                                                   <!-- Savatchaga qo'shish  -->
+                                                   <form method="POST" action="{{ url_for('add_to_cart') }}" class="d-inline">
+                                                    <input type="hidden" name="item" value="{{ item.name }}">
+                                                    <button type="submit" class="btn btn-outline-light btn-sm">Savatchaga</button>
+                                                    </form>
+                        
+                                                    <!-- Savatga qo'shib va buyurtma berish -->
+                                                    <form method="POST" action="{{ url_for('add_to_cart') }}" class="d-inline">
+                                                    <input type="hidden" name="item" value="{{ item.name }}">
+                                                    <input type="hidden" name="redirect_to_cart" value="true">
+                                                    <button type="submit" class="btn btn-sm btn-success ms-2">Buyurtma berish</button>
+                                                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+</body>
+
+</html>

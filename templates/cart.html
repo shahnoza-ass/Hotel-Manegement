@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savatcha</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="mb-4">🛒 Sizning savatchangiz</h2>
+
+        {% if cart %}
+        <ul class="list-group">
+            {% for item in cart %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ item }}</span>
+                <button class="btn btn-outline-danger btn-sm" onclick="confirmDelete('{{ item }}')">
+                    <i class="bi bi-trash"></i> O'chirish
+                </button>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('home') }}" class="btn btn-secondary mt-4">🔙 Orqaga</a>
+        <a href="{{ url_for('jarayon') }}" class="btn btn-success mt-4 ms-2">📦 Buyurtma berish</a>
+        {% else %}
+        <div class="alert alert-info">Savatchangiz hozircha bo'sh.</div>
+        <a href="{{ url_for('home') }}" class="btn btn-secondary mt-4">🔙 Orqaga</a>
+        {% endif %}
+    </div>
+
+    <!-- O'chirishni tasdiqlash modali -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">O'chirishni tasdiqlash</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Yopish"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="deleteMessage">Haqiqatan ham bu mahsulotni savatchadan o'chirmoqchimisiz?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">O'chirish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skriptlar -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let itemToDelete = '';
+        
+        function confirmDelete(item) {
+            itemToDelete = item;
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            document.getElementById('deleteMessage').textContent = 
+                `Haqiqatan ham "${item}" ni savatchadan o'chirmoqchimisiz?`;
+            deleteModal.show();
+        }
+        
+        document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+            window.location.href = `/remove_from_cart?item=${encodeURIComponent(itemToDelete)}`;
+        });
+    </script>
+</body>
+</html>

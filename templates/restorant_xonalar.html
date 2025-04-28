@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍽 Stolni tanlang</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .room-card {
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .room-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .room-number {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+    <div class="container py-5">
+        <h2 class="text-center mb-4">🍽 Stolni tanlang</h2>
+
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+            {% for xona in xonalar %}
+            <div class="col">
+                <div class="card room-card text-center p-3">
+                    <div class="card-body">
+                        <div class="room-number mb-3">{{ xona }}-stol </div>
+                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#confirmationModal"
+                            data-room="{{ xona }}">
+                            <i class="bi bi-check-circle"></i> Tanlash
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Tasdiqlash modali -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Buyurtmani tasdiqlash</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmationText">Haqiqatdan ham buyurtmani <span id="roomNumber"></span>-stolga
+                        yubormoqchimisiz?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle"></i> Bekor qilish
+                    </button>
+                    <button type="button" class="btn btn-success" id="confirmOrderBtn">
+                        <i class="bi bi-check-circle"></i> Tasdiqlash
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Muvaffaqiyatli modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Muvaffaqiyatli!</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+                    <h4 class="my-3">Buyurtmangiz qabul qilindi!</h4>
+                    <p id="successMessage"></p>
+                    <p>Taxminan 30 daqiqada tayyor bo`ladi.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success w-100" data-bs-dismiss="modal">
+                        <i class="bi bi-house-door"></i> Bosh sahifaga qaytish
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript kutubxonalari -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Tanlangan xonani saqlash
+        let selectedRoom = '';
+
+        // Modalni ishga tushirish
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            selectedRoom = button.getAttribute('data-room');
+            document.getElementById('roomNumber').textContent = selectedRoom;
+        });
+
+        // Tasdiqlash tugmasi
+        document.getElementById('confirmOrderBtn').addEventListener('click', function () {
+           
+            const modal = bootstrap.Modal.getInstance(confirmationModal);
+            modal.hide();
+
+            // Buyurtmani yuborish
+            setTimeout(() => {
+                // Muvaffaqiyatli ko'rsatish
+                document.getElementById('successMessage').textContent =
+                    `Buyurtmangiz ${selectedRoom}-stolga muvaffaqiyatli yuborildi!`;
+                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+
+                // Savatchani tozalash va bosh sahifaga yo'naltirish
+                successModal._element.addEventListener('hidden.bs.modal', function () {
+                    window.location.href = "/clear_cart";
+                });
+            }, 500);
+        });
+    </script>
+</body>
+
+</html>

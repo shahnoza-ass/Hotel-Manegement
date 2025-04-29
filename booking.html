@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandlov - Sport Bo'limi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Sport Bo'limiga Band Qilish</h1>
+    </header>
+
+    <section class="booking-form">
+        <form method="POST" action="{{ url_for('booking') }}">
+            <label for="name">Ismingiz</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="sport">Sport yoki Fitnes Turi</label>
+            <select id="sport" name="sport" required>
+                {% for sport in sports %}
+                {% if sport.name != "Fitnes Zali" %}
+                <option value="{{ sport.name }}">{{ sport.name }}</option>
+                {% endif %}
+                {% endfor %}
+                {% for type in fitness_types %}
+                <option value="{{ type.name }}">{{ type.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="date">Sana</label>
+            <input type="date" id="date" name="date" required>
+
+            <button type="submit" class="cta-button">Yuborish</button>
+        </form>
+        <a href="{{ url_for('index') }}" class="back-button">Orqaga</a>
+    </section>
+
+    <footer>
+        <p>© 2025 Mehmonxona. Hammasi siz uchun!</p>
+    </footer>
+</body>
+</html>

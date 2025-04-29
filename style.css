@@ -1,0 +1,223 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: #d7ebfd;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/static/images/gym.jpg');
+    background-size: cover;
+    background-position: center;
+    color: rgb(253, 253, 253);
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #021931;
+    color: rgb(253, 253, 253);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.cta-button:hover {
+    background: #218838;
+}
+
+/* Flash xabarlar */
+.flash-message {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.flash-message .success {
+    background: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border: 1px solid #c3e6cb;
+}
+
+/* Sport kartochkalari */
+.sports {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.sports h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.sport-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.sport-card {
+    background: rgb(239, 252, 123);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.sport-card:hover {
+    transform: translateY(-5px);
+}
+
+.sport-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.sport-card h3 {
+    font-size: 1.4rem;
+    margin: 10px 0;
+}
+
+.sport-card p {
+    font-size: 0.9rem;
+    color: #666;
+    padding: 0 15px;
+    margin-bottom: 15px;
+}
+
+.card-button {
+    display: block;
+    margin: 15px;
+    padding: 10px;
+    background: #021931;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    transition: background 0.3s;
+}
+
+.card-button:hover {
+    background: #021931;
+}
+
+.types-button {
+    background: #021931;
+}
+
+.types-button:hover {
+    background: #021931;
+}
+
+/* Mashqlar gridi */
+.exercise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    padding: 15px;
+}
+
+.exercise-item {
+    text-align: center;
+}
+
+.exercise-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.exercise-item p {
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+/* Bandlov formasi */
+.booking-form {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.booking-form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+.booking-form input,
+.booking-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.booking-form button {
+    width: 100%;
+}
+
+.back-button {
+    display: inline-block;
+    margin: 15px;
+    padding: 10px;
+    color:#021931;
+    text-decoration: none;
+    text-align: center;
+}
+
+.back-button:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+/* Mobil moslashuv */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    .sport-image {
+        height: 150px;
+    }
+    .exercise-image {
+        height: 100px;
+    }
+}
